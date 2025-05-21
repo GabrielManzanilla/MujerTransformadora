@@ -24,7 +24,6 @@ class User extends Authenticatable
     public $incrementing = false;
     public $keyType = 'string';
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
