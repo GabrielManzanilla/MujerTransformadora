@@ -6,8 +6,21 @@
         'data' => []])
 
 
-<div class="container mx-auto px-4 py-6">
-    <div class="text-center uppercase text-lg font-bold mb-3">{{ $title }}</div>
+<div class="container mx-auto px-4 py-6 ">
+
+    <div class="flex uppercase text-lg font-black px-3 mb-5">
+    <p>{{ $title }}</p>
+    
+    @if (auth()->user()->role === 'user')
+        <x-primary-button class="ml-auto" 
+                        onclick="window.location.href='{{ route('solicitud.create') }}'">
+            Crear Solicitud
+            
+            <svg class="w-4 h-4 inline-block ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+        </x-primary-button>
+    @endif
+    </div>
     <div class=" overflow-x-auto shadow-md sm:rounded-lg ">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-200">
@@ -37,7 +50,7 @@
                         <a href="#" class="font-medium text-secondary hover:underline">Edit</a>
                     </td>
                 </tr>
-            @endforeach
+      @endforeach
         </tbody>
     </table>
 </div>
