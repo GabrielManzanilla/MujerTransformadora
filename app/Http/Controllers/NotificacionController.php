@@ -38,6 +38,7 @@ class NotificacionController extends Controller
     public function show(string $id)
     {
         //
+        return view('notificaciones.show', ['id' => $id]);
     }
 
     /**
