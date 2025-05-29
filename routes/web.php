@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SolicitudController;
@@ -25,6 +26,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/solicitudes/{solicitud}', [SolicitudController::class, 'show'])->name('solicitud.show');
     Route::get('/solicitudes/{solicitud}/edit', [SolicitudController::class, 'edit'])->name('solicitud.edit');
     Route::put('/solicitudes/{solicitud}', [SolicitudController::class, 'update'])->name('solicitud.update');
+
+    Route::get('/notificaciones/', [NotificacionController::class, 'index'])->name('notificaciones.index');
+    Route::get('/notificaciones/{id}', [NotificacionController::class, 'show'])->name('notificaciones.show');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
