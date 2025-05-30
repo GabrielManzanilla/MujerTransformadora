@@ -21,7 +21,7 @@
 							<p><strong>Email:</strong> {{ $user->email }}</p>
 							<p><strong>Teléfono:</strong> {{ $user->phone }}</p>
 						</div>
-						<div>
+						<div class="bg-gray-100 p-4 rounded-lg shadow flex-0">
 							Imagen de perfil
 						</div>
 					</div>
