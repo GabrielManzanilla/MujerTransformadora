@@ -2,11 +2,16 @@
 	<div class="w-full h-full p-4">
 		<div class="w-full h-full rounded-lg overflow-y bg-white shadow-md p-2">
 			<x-form>
-				
+
 				<x-fieldset label="Datos Personales" step="1">
 					<x-input-solicitud id="name" label="Nombre Completo" type="text" />
 					<x-input-solicitud id="email" label="Correo Electrónico" type="email" />
 					<x-input-solicitud id="phone" label="Teléfono" type="tel" />
+					<x-slot name="dinamic_input">
+						<x-dinamic-input id="additional_info" label="Información Adicional" type="text" >
+							<x-input-solicitud id="additional_info_name" label="Nombre" type="text" />
+						</x-dinamic-input>
+					</x-slot>
 				</x-fieldset>
 				<x-fieldset label="Información de la Solicitud" step="2">
 					<x-input-solicitud id="subject" label="Asunto" type="text" />
