@@ -3,7 +3,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form method="POST" action="{{ route('register') }}" class="overflow-y-auto px-1 ">
+                    <form method="POST" action="{{ route('register') }}" class="overflow-y-auto px-1 "
+                        enctype="multipart/form-data">
                         @csrf
 
                         <!-- Name -->
@@ -91,6 +92,21 @@
                             <x-input-error :messages="$errors->get('es_mayahablante')" class="mt-2" />
                         </div>
 
+                        <!-- Foto perfil -->
+                        <div class="mt-4">
+                            <x-input-label for="foto_perfil" :value="__('Foto de Perfil')" />
+                            <x-text-input id="foto_perfil" class="block mt-1 w-full" type="file" name="foto_perfil"
+                                accept="image/*" />
+                            <x-input-error :messages="$errors->get('foto_perfil')" class="mt-2" />
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="mt-4">
+                            <x-input-label for="telefono" :value="__('Teléfono')" />
+                            <x-text-input id="telefono" class="block mt-1 w-full" type="tel" name="telefono"
+                                :value="old('telefono')" required autocomplete="tel" />
+                            <x-input-error :messages="$errors->get('telefono')" class="mt-2" />
+                        </div>
                         <!-- Email Address -->
                         <div class="mt-4">
                             <x-input-label for="email" :value="__('Email')" />

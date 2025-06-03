@@ -29,11 +29,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        try{
+        try {
 
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'apellido_paterno' => ['required', 'string', 'max:255'],
                 'apellido_materno' => ['required', 'string', 'max:255'],
@@ -43,12 +43,14 @@ class RegisteredUserController extends Controller
                 'estado_nacimiento' => ['required', 'string', 'max:255'],
                 'sexo' => ['required', 'string'],
                 'es_mayahablante' => ['required', 'boolean'],
+                'telefono' => ['required', 'string', 'max:20'],
+                'foto_perfil' => ['nullable', 'image', 'max:2048'], // Max 2MB
             ]);
-        }
-        catch(\Illuminate\Validation\ValidationException $e){
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         }
-
+        
         $user = User::create([
             // 'name' => $request->name,
             'email' => $request->email,
@@ -64,12 +66,16 @@ class RegisteredUserController extends Controller
             'str_estado_nacimiento' => $request->estado_nacimiento,
             'str_sexo' => $request->sexo,
             'bool_es_mayahablante' => $request->es_mayahablante,
+            'str_telefono' => $request->telefono,
         ]);
+
+        $file = app('App\Http\Controllers\FileController');
+        $file->store($request, 'foto_perfil', $user);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('home', absolute: false));
     }
 }

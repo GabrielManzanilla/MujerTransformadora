@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('str_estado_nacimiento');
             $table->enum('str_sexo', ['Masculino', 'Femenino']);
             $table->boolean('bool_es_mayahablante')->default(false);
+            $table->string('str_telefono');
+
+            $table->enum('status',['Activo', 'Inactivo', 'En Revision', 'Necesita Actualizacion'])->default('En Revision');
             $table->timestamps();
         });
     }

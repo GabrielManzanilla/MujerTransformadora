@@ -26,7 +26,8 @@ class PerfilUsuario extends Model
         'str_municipio_nacimiento',
         'str_estado_nacimiento',
         'str_sexo',
-        'bool_es_mayahablante'
+        'bool_es_mayahablante',
+        'str_telefono',
     ];
     protected $casts = [
         'dt_fecha_nacimiento' => 'date',
@@ -38,4 +39,8 @@ class PerfilUsuario extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function files()
+    {
+        return $this->morphMany(FileModel::class, 'fileable');
+    }
 }
