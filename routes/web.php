@@ -6,33 +6,42 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'role:user'])->group(function () {
-    // Rutas para ver el perfil del usuario
-    Route::get('/perfil', [PerfilController::class, 'show'])->name('perfil.show');
-    Route::get('/perfil/{id}', [PerfilController::class, 'edit'])->name('perfil.edit');
+Route::get('/', fn() => view('welcome'))->name('home');
+Route::get('/contact', fn ()=> view('contact'))->name('contact');
+Route::get('/about', fn() => view('about'))->name('about');
 
-    //Rutas para el CRUD de las solicitudes
-    Route::get('/solicitudes', [SolicitudController::class, 'index'])->name('solicitud.index');
-    Route::get('/solicitud/create', [SolicitudController::class, 'create'])->name('solicitud.create');
-    Route::post('/solicitud', [SolicitudController::class, 'store'])->name('solicitud.store');
-    Route::get('/solicitudes/{solicitud}', [SolicitudController::class, 'show'])->name('solicitud.show');
-    Route::get('/solicitudes/{solicitud}/edit', [SolicitudController::class, 'edit'])->name('solicitud.edit');
-    Route::put('/solicitudes/{solicitud}', [SolicitudController::class, 'update'])->name('solicitud.update');
 
-    Route::get('/notificaciones/', [NotificacionController::class, 'index'])->name('notificaciones.index');
-    Route::get('/notificaciones/{id}', [NotificacionController::class, 'show'])->name('notificaciones.show');
+Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
+    // Grupo de rutas para el perfil
+    Route::prefix('perfil')->name('perfil.')->group(function () {
+        Route::get('/', [PerfilController::class, 'show'])->name('show');
+        Route::get('/{id}', [PerfilController::class, 'edit'])->name('edit');
+    });
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Grupo de rutas para solicitudes
+    Route::prefix('solicitudes')->name('solicitud.')->group(function () {
+        Route::get('/', [SolicitudController::class, 'index'])->name('index');
+        Route::get('/create', [SolicitudController::class, 'create'])->name('create');
+        Route::post('/', [SolicitudController::class, 'store'])->name('store');
+        Route::get('/{solicitud}', [SolicitudController::class, 'show'])->name('show');
+        Route::get('/{solicitud}/edit', [SolicitudController::class, 'edit'])->name('edit');
+        Route::put('/{solicitud}', [SolicitudController::class, 'update'])->name('update');
+    });
+
+    // Grupo de rutas para notificaciones
+    Route::prefix('notificaciones')->name('notificaciones.')->group(function () {
+        Route::get('/', [NotificacionController::class, 'index'])->name('index');
+        Route::get('/{id}', [NotificacionController::class, 'show'])->name('show');
+    });
+
+    // Grupo de rutas para el profile
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
