@@ -38,11 +38,13 @@
 							<p><strong>{{ $user->perfil->str_sexo }}
 									{{ ($user->perfil->bool_es_mayahablante === 1) && '| MayaHablante'}}</strong></p>
 							<p><strong>Email:</strong> {{ $user->email }}</p>
-							<p><strong>Teléfono:</strong> {{ $user->perfil->telefono }}</p>
+							<p><strong>Teléfono:</strong> {{ $user->perfil->str_telefono }}</p>
 						</div>
-						<div class="bg-gray-100 p-4 rounded-lg shadow flex-0 ">
-							<img src="" alt="imagen de perfil"
-								class="w-auto h-full object-cover aspect-square rounded-lg">
+						<div class="bg-gray-100 p-4 rounded-lg shadow flex-0 flex-col flex justify-center items-center">
+							<a href="{{ route('archivo.show',['propietario'=>'perfil','tipo_archivo'=>'foto_perfil']) }}" target="_blank">
+								<img src="{{ route('archivo.show',['propietario'=>'perfil','tipo_archivo'=>'foto_perfil'])}}" alt="imagen de perfil"
+								class="w-auto h-48 object-cover aspect-square rounded-lg">
+							</a>
 						</div>
 					</div>
 					<div class="bg-gray-100 mt-3 p-4 rounded-lg shadow">

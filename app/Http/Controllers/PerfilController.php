@@ -44,10 +44,13 @@ class PerfilController extends Controller
         }
         
         $perfil = $user->perfil; // Accede a la relación como propiedad
+        $file = app('App\Http\Controllers\FileController');
+        
         
         return view('perfil.show', [
             'user' => $user,
             'perfil' => $perfil,
+            
         ]);
 
     }

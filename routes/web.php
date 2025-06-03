@@ -4,6 +4,7 @@ use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SolicitudController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => view('welcome'))->name('home');
 Route::get('/contact', fn ()=> view('contact'))->name('contact');
 Route::get('/about', fn() => view('about'))->name('about');
+
+Route::get('/archivo/{propietario}/{tipo_archivo}', [\App\Http\Controllers\FileController::class, 'show'])
+    ->middleware('auth')
+    ->name('archivo.show');
 
 
 Route::middleware(['auth', 'role:user', 'verified'])->group(function () {

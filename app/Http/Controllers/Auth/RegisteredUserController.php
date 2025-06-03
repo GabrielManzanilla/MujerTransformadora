@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
                 'sexo' => ['required', 'string'],
                 'es_mayahablante' => ['required', 'boolean'],
                 'telefono' => ['required', 'string', 'max:20'],
-                'foto_perfil' => ['nullable', 'image', 'max:2048'], // Max 2MB
+                'foto_perfil' => ['required', 'image', 'max:2048', 'mimes:jpg,jpeg,png'], // Max 2MB
             ]);
             
         } catch (\Illuminate\Validation\ValidationException $e) {
