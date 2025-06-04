@@ -45,6 +45,7 @@ class FileController extends Controller
 
     }
 
+
     public function index()
     {
         //
@@ -98,8 +99,9 @@ class FileController extends Controller
             ->where('str_categoria_archivo', $tipo_archivo)
             ->first();
 
-        $path = Storage::disk( 'local')->path(
-        $archivo->str_path_archivo);
+        $path = Storage::disk('local')->path(
+            $archivo->str_path_archivo
+        );
 
         return response()->file($path);
 
@@ -117,9 +119,24 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $nombre_archivo, $user, $solicitud_id = null)
     {
-        //
+        if ($solicitud_id) {
+            $solicitud = $user->perfil->solicitudes()->where('pk_solicitud_id', $solicitud_id)->firstOrFail();
+            $origin = $solicitud;
+        } else {
+            $origin = $user->perfil;
+        }
+
+        $archivo = $origin->files()
+            ->where('str_categoria_archivo', $nombre_archivo)
+            ->first();
+
+        Storage::disk('local')->delete($archivo->str_path_archivo);
+        $archivo->delete();
+
+        $this->store($request, $nombre_archivo, $user, $solicitud_id);
+
     }
 
     /**

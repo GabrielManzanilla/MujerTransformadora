@@ -111,6 +111,12 @@ class PerfilController extends Controller
             'str_telefono' => $request->telefono,
         ]);
 
+        $file = app('App\Http\Controllers\FileController');
+        ($request->hasFile('foto_perfil'))&& $file->update($request, 'foto_perfil', $perfil->user);
+        ($request->hasFile('ine'))&&$file->update($request, 'ine', $perfil->user);
+        ($request->hasFile('acta_nacimiento'))&&$file->update($request, 'acta_nacimiento', $perfil->user);
+        ($request->hasFile('comprobante_domicilio'))&&$file->update($request, 'comprobante_domicilio', $perfil->user);
+
         return redirect()->route('perfil.show');
 
     }

@@ -38,9 +38,8 @@
 							<p><strong>Teléfono:</strong> {{ $user->perfil->str_telefono }}</p>
 						</div>
 						<div class="bg-gray-100 p-4 rounded-lg shadow flex-0 flex-col flex justify-center items-center">
-							<a href="{{ route('archivo.show',['propietario'=>'perfil','tipo_archivo'=>'foto_perfil']) }}" target="_blank">
-								<img src="{{ route('archivo.show',['propietario'=>'perfil','tipo_archivo'=>'foto_perfil'])}}" alt="imagen de perfil"
-								class="w-auto h-48 object-cover aspect-square rounded-lg">
+							<a href="{{ route('archivo.show', ['propietario' => 'perfil', 'tipo_archivo' => 'foto_perfil']) }}?v={{ $user->updated_at->timestamp ?? now()->timestamp }}" target="_blank">
+								<img src="{{ route('archivo.show', ['propietario' => 'perfil', 'tipo_archivo' => 'foto_perfil']) }}?v={{ $user->updated_at->timestamp ?? now()->timestamp }}" class="w-auto h-48 aspect-square object-cover rounded-lg" alt="Foto de Perfil">
 							</a>
 						</div>
 					</div>
