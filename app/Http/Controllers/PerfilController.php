@@ -44,13 +44,18 @@ class PerfilController extends Controller
         }
         
         $perfil = $user->perfil; // Accede a la relación como propiedad
-        $file = app('App\Http\Controllers\FileController');
+        
+        $acta_nacimiento=$perfil->files()->where('str_categoria_archivo', 'acta_nacimiento')->first();
+        $comprobante_domicilio=$perfil->files()->where('str_categoria_archivo', 'comprobante_domicilio')->first();
+        $ine=$perfil->files()->where('str_categoria_archivo', 'ine')->first();
         
         
         return view('perfil.show', [
             'user' => $user,
             'perfil' => $perfil,
-            
+            'status_acta_nacimiento' => $acta_nacimiento->str_status,
+            'status_comprobante_domicilio' => $comprobante_domicilio->str_status,
+            'status_ine' => $ine->str_status,
         ]);
 
     }
@@ -60,9 +65,14 @@ class PerfilController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
-        //
-        dd((int)$id);
+    {   
+        $user = User::findOrFail($id);
+        $perfil = $user->perfil; // Accede a la relación como propiedad
+
+        return view('auth.register', [
+            'perfil' => $perfil,
+            'method' => 'PUT',
+        ]);
     }
 
     /**
@@ -71,6 +81,7 @@ class PerfilController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        dd($request->all(), $id);
     }
 
     /**

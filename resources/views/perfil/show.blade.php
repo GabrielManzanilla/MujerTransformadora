@@ -54,9 +54,9 @@
 					<div class="bg-gray-100 mt-3 p-4 rounded-lg shadow overflow-x-auto">
 						<h3 class="font-bold text-lg mb-2">Documentos</h3>
 						<div class="flex flex-row gap-2">
-							<x-link-document propietario="perfil" tipo_documento="acta_nacimiento" titulo="Acta de Nacimiento" status="Necesita Actualizacion"/>
-							<x-link-document propietario="perfil" tipo_documento="ine" titulo="INE" status="Activo"/>
-							<x-link-document propietario="perfil" tipo_documento="comprobante_domicilio" titulo="Comprobante Domicilio" status="Activo"/>
+							<x-link-document propietario="perfil" tipo_documento="acta_nacimiento" titulo="Acta de Nacimiento" status="{{$status_acta_nacimiento}}"/>
+							<x-link-document propietario="perfil" tipo_documento="ine" titulo="INE" status="{{$status_ine}}"/>
+							<x-link-document propietario="perfil" tipo_documento="comprobante_domicilio" titulo="Comprobante Domicilio" status="{{ $status_comprobante_domicilio }}"/>
 						</div>
 					</div>
 				</div>

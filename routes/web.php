@@ -23,6 +23,7 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     Route::prefix('perfil')->name('perfil.')->group(function () {
         Route::get('/', [PerfilController::class, 'show'])->name('show');
         Route::get('/{id}', [PerfilController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [PerfilController::class, 'update'])->name('update');
     });
 
     // Grupo de rutas para solicitudes
