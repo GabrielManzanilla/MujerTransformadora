@@ -95,9 +95,29 @@
                         <!-- Foto perfil -->
                         <div class="mt-4">
                             <x-input-label for="foto_perfil" :value="__('Foto de Perfil')" />
-                            <x-text-input id="foto_perfil" class="block mt-1 w-full" type="file" name="foto_perfil"
-                                accept="image/*" />
+                            <x-input-file id="foto_perfil" accept="image/*" />
                             <x-input-error :messages="$errors->get('foto_perfil')" class="mt-2" />
+                        </div>
+
+                        <!-- INE -->
+                        <div class="mt-4">
+                            <x-input-label for="ine" :value="__('INE')" />
+                            <x-input-file id="ine" accept="pdf/*"/>
+                            <x-input-error :messages="$errors->get('ine')" class="mt-2" />
+                        </div>
+
+                        <!--Acta Nacimiento -->
+                        <div class="mt-4">
+                            <x-input-label for="acta_nacimiento" :value="__('Acta de Nacimiento')" />
+                            <x-input-file id="acta_nacimiento" accept="pdf/*"/>
+                            <x-input-error :messages="$errors->get('acta_nacimiento')" class="mt-2" />
+                        </div>
+
+                        <!-- Comprobante Domicilio -->
+                        <div class="mt-4">
+                            <x-input-label for="comprobante_domicilio" :value="__('Comprobante de Domicilio')" />
+                            <x-input-file id="comprobante_domicilio" accept="pdf/*"/>
+                            <x-input-error :messages="$errors->get('comprobante_domicilio')" class="mt-2" />
                         </div>
 
                         <!-- Teléfono -->

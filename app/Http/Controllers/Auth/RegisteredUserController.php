@@ -45,6 +45,9 @@ class RegisteredUserController extends Controller
                 'es_mayahablante' => ['required', 'boolean'],
                 'telefono' => ['required', 'string', 'max:20'],
                 'foto_perfil' => ['required', 'image', 'max:2048', 'mimes:jpg,jpeg,png'], // Max 2MB
+                'ine' => ['required', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
+                'acta_nacimiento' => ['required', 'file', 'max:2048', 'mimes:pdf'], // Optional, Max 2MB, PDF only
+                'comprobante_domicilio' => ['required', 'file', 'max:2048', 'mimes:pdf'], // Optional, Max 2MB, PDF only
             ]);
             
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -71,6 +74,10 @@ class RegisteredUserController extends Controller
 
         $file = app('App\Http\Controllers\FileController');
         $file->store($request, 'foto_perfil', $user);
+        $file->store($request, 'ine', $user);
+        $file->store($request, 'acta_nacimiento', $user);
+        $file->store($request, 'comprobante_domicilio', $user);
+        
 
         event(new Registered($user));
 

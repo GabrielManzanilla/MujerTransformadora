@@ -29,8 +29,8 @@ class FileController extends Controller
             //si solo existe un id de usuario, se guarda en la carpeta del perfil del usuario
             //si existe un id de solicitud, se guarda en la carpeta del perfil del usuario y la solicitud
             $carpeta = $solicitud_id
-                ? "app/perfil/{$user->id}/solicitud/{$solicitud_id}"
-                : "app/perfil/{$user->id}";
+                ? "usuarios/{$user->id}/solicitud/{$solicitud_id}"
+                : "usuarios/{$user->id}/documentos";
 
             $extension = $archivo->getClientOriginalExtension();
             $filename = "{$nombre_archivo}.{$extension}";

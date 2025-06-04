@@ -21,10 +21,7 @@
 			<div class="bg-white overflow-hidden shadow-sm rounded-lg">
 				<div class="p-6 bg-white border-b border-gray-200">
 					<div class="flex flex-row gap-2 items-center mb-4">
-						<div class="flex bg-gray-100 p-1 rounded-lg shadow items-center gap-2">
-							<span class="rounded-full h-2 w-2 bg-green-300"></span>
-							<p class="font-bold">Status</p>
-						</div>
+						<x-status status="{{ $user->perfil->status }}"/>
 						<h2 class="font-semibold text-xl text-gray-800 leading-tight ">
 							{{ __('Perfil de Usuario') }}
 						</h2>
@@ -57,44 +54,9 @@
 					<div class="bg-gray-100 mt-3 p-4 rounded-lg shadow overflow-x-auto">
 						<h3 class="font-bold text-lg mb-2">Documentos</h3>
 						<div class="flex flex-row gap-2">
-							<div class="bg-gray-50 p-2 rounded-lg shadow max-w-28 flex flex-col justify-between items-center">
-								<p class="text-wrap text-center font-semibold">Acta Nacimiento</p>
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-20 aspect-video" fill="none" viewBox="0 0 24 24"
-									stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-								</svg>
-								<div class="text-sm flex flex-row items-center gap-2">
-									<div class="w-2 h-2 bg-green-400 rounded-full "></div>
-									Status
-								</div>
-							</div>
-
-							<div class="bg-gray-50 p-2 rounded-lg shadow max-w-28 flex flex-col justify-between items-center">
-								<p class="text-wrap text-center font-semibold"><br>INE</p>
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-20 aspect-video" fill="none" viewBox="0 0 24 24"
-									stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-								</svg>
-								<div class="text-sm flex flex-row items-center gap-2">
-									<div class="w-2 h-2 bg-green-400 rounded-full "></div>
-									Status
-								</div>
-							</div>
-
-							<div class="bg-gray-50 p-2 rounded-lg shadow max-w-28 flex flex-col justify-between items-center">
-								<p class="text-wrap text-center font-semibold">Comprobante Domicilio</p>
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-20 aspect-video" fill="none" viewBox="0 0 24 24"
-									stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-								</svg>
-								<div class="text-sm flex flex-row items-center gap-2">
-									<div class="w-2 h-2 bg-green-400 rounded-full "></div>
-									Status
-								</div>
-							</div>
+							<x-link-document propietario="perfil" tipo_documento="acta_nacimiento" titulo="Acta de Nacimiento" status="Necesita Actualizacion"/>
+							<x-link-document propietario="perfil" tipo_documento="ine" titulo="INE" status="Activo"/>
+							<x-link-document propietario="perfil" tipo_documento="comprobante_domicilio" titulo="Comprobante Domicilio" status="Activo"/>
 						</div>
 					</div>
 				</div>
