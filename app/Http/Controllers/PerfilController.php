@@ -38,11 +38,10 @@ class PerfilController extends Controller
      */
     public function show(string $id = null)
     {
-        if ($id) {
-            $user = User::findOrFail($id);
-        } else {
-            $user = auth()->user();
-        }
+        $id
+        ? $user = User::findOrFail($id)
+        : $user = auth()->user();
+        
 
         $perfil = $user->perfil; // Accede a la relación como propiedad
 
