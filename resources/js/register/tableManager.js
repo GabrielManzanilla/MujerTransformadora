@@ -6,13 +6,19 @@ export class TableManager{
 		this.message = table_data.message;
 		this.inputs = table_data.inputs;
 		this.json = table_data.json;
+		console.log(!(!this.tableElement), !(!this.message), !(!this.inputs), !(!this.json));
+		// Verificación defensiva para evitar errores si la tabla no existe
+		if (!this.tableElement) {
+			console.error('TableManager: No se encontró el elemento de la tabla. Revisa que el id o referencia sea correcto.');
+			return;
+		}
 		this.tableBody = this.tableElement.getElementsByTagName('tbody')[0];
 		this.array_data = []; // conjunto de datos
 
 		this.comprobation_empty_json(); //verificamos si el json tiene datos para llenar la tabla
 	}
 	comprobation_empty_json(){
-		console.log(this.json.value)
+
 		if(this.json.value && this.json.value !== ""){
 			try{
 				this.array_data = JSON.parse(this.json.value);
@@ -68,9 +74,7 @@ export class TableManager{
 		const optionsCell = newRow.insertCell();
 		const deleteButton = document.createElement('button');
 		deleteButton.textContent = 'Eliminar';
-		deleteButton.classList.add('bg-red-500', 'rounded-md', 'text-white', 'font-bold', 'px-2', 'py-1', 
-															 'hover:bg-red-700', 'hover:cursor-pointer');
-
+		deleteButton.className = 'bg-primary rounded-md text-white  font-bold px-2 py-1 hover:bg-red-700 hover:cursor-pointer transition duration-150';
 		//añadir funcionalidad para eliminar la fila del boton
 		deleteButton.addEventListener('click', (i) => {
 			this.array_data.splice(newRow.rowIndex - 1, 1); 
@@ -83,8 +87,7 @@ export class TableManager{
 		// FUNCIONALIDAD DE EDITAR PARA PROXIMOS PLANES
 		const editButton = document.createElement('button');
 		editButton.textContent = 'Editar';
-		editButton.classList.add('bg-green-500', 'rounded-md', 'text-white', 'font-bold', 'px-2', 'py-1', 
-		 													 'hover:bg-green-700', 'hover:cursor-pointer');
+		editButton.className = 'bg-secondary rounded-md text-white font-bold px-2 py-1 hover:bg-green-700 hover:cursor-pointer ml-2 transition duration-150';
 		editButton.addEventListener('click', () => {
 		
 			this.inputs.forEach((input, index) => {

@@ -10,7 +10,7 @@
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 		{{ $slot }}
 	</div>
-	<x-primary-button id="{{ $id_button }}" class="mb-4">
+	<x-primary-button id="{{ $id_button }}" class="mb-4" type="button">
 		<i class="fas fa-plus"></i> Agregar
 	</x-primary-button>
 	<table class="min-w-full divide-y divide-gray-200 w-78 md:w-full overflow-x-auto rounded-lg" id="{{$id_table}}">

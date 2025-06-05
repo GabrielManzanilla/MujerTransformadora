@@ -31,7 +31,7 @@ export class MultiStepForm {
       indicator.innerHTML = `
         <span class="flex items-center">
           <span class="w-6 h-6 flex items-center justify-center rounded-full mr-2 ${
-            stepNumber === 1 ? 'text-primary bg-secondary ' : 'bg-gray-200 text-gray-600'
+            stepNumber === 1 ? ' bg-secondary text-white' : 'bg-gray-200 text-gray-600'
           }">${stepNumber}</span>
           <div class="ml-2 hidden md:inline">${stepTitle}</div>
         </span>

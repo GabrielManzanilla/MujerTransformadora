@@ -15,7 +15,7 @@
 	@if ($type === 'select')
 	<select id="{{$id}}" name="{{ $id }}" class="border border-gray-300 rounded p-2 w-full" required>
 		@foreach ($options as $value => $text)
-			<option value="{{ $value }}">{{ $text }}</option>
+			<option value="{{ $text }}">{{ $text }}</option>
 		@endforeach
 	</select>
 	@else
