@@ -26,12 +26,12 @@ export class MultiStepForm {
       const stepTitle = step.querySelector('legend').textContent;
       
       const indicator = document.createElement('li');
-      indicator.className = `font-bold md:pl-5 p-2 rounded-lg cursor-pointer hover: ${stepNumber === 1 ? 'bg-opacity-100 bg-primary text-secondary' : 'bg-opacity-10 bg-gray-300 text-[#6D1528]'} hover:scale-105 transition-all duration-300`;
+      indicator.className = `font-bold md:pl-5 p-2 rounded-lg cursor-pointer hover: ${stepNumber === 1 ? 'bg-opacity-100 bg-primary text-secondary' : 'bg-opacity-10 bg-gray-300 text-primary'} hover:scale-105 transition-all duration-300`;
       indicator.dataset.step = stepNumber;
       indicator.innerHTML = `
         <span class="flex items-center">
           <span class="w-6 h-6 flex items-center justify-center rounded-full mr-2 ${
-            stepNumber === 1 ? ' bg-secondary text-white' : 'bg-gray-200 text-gray-600'
+            stepNumber === 1 ? ' bg-secondary text-primary' : 'bg-gray-200 text-gray-600'
           }">${stepNumber}</span>
           <div class="ml-2 hidden md:inline">${stepTitle}</div>
         </span>
