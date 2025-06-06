@@ -2,7 +2,8 @@
 		'id' => 'input-solicitud',
 		'label' => 'Input Solicitud',
 		'type' => 'text',
-		'options' => []
+		'options' => [],
+		'class' => '',
 ])
 
 @php
@@ -10,7 +11,7 @@
 
 @endphp
 
-<div class="flex flex-col space-y-2">
+<div class="flex flex-col space-y-2 {{ $class }}">
 	<label for="name" class="text-sm font-medium">{{$label}}</label>
 	@if ($type === 'select')
 	<select id="{{$id}}" name="{{ $id }}" class="border border-gray-300 rounded p-2 w-full" required>

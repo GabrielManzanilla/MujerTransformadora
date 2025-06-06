@@ -18,7 +18,7 @@
 					<x-slot name="dinamic_input">
 						<x-dinamic-input :headers="['Direccion', 'Estado', 'Municipio', 'Localidad']" id_button="add_domicilio"
 							id_message="message_domicilios_table_empty" id_table="domicilios_table" id_json="domicilios_json">
-							<x-input-solicitud id="direccion" label="Direccion" type="text" />
+							<x-input-solicitud id="direccion" label="Direccion" type="text" class="lg:col-span-3"/>
 							<x-input-solicitud id="estado_domiclio" label="Estado" type="select" :options="['Alta' => 'Alta', 'Media' => 'Media', 'Baja' => 'Baja']" />
 							<x-input-solicitud id="municipio_domicilio" label="Municipio" type="select" :options="['Alta' => 'Alta', 'Media' => 'Media', 'Baja' => 'Baja']" />
 							<x-input-solicitud id="localidad_domicilio" label="Localidad" type="select" :options="['Alta' => 'Alta', 'Media' => 'Media', 'Baja' => 'Baja']" />
