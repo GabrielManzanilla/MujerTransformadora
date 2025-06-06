@@ -1,6 +1,6 @@
 <x-app-layout>
-	<div class="w-full h-full p-4">
-		<div class="w-full h-full rounded-lg overflow-y bg-white shadow-md p-2">
+	<div class="w-full h-full p-1">
+		<div class="w-full h-full rounded-lg bg-white shadow-md p-2 m-0">
 			<x-form>
 
 				<x-fieldset label="Datos Fiscales" step="1">

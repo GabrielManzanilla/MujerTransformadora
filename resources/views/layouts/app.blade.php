@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans antialiased bg-gray-100 h-screen flex flex-col">
             @include('layouts.navigation')
-            <main class="flex-1 overflow-y-auto">
+            <main class="flex-1 min-h-0">
                 {{ $slot }}
             </main>
     </body>
