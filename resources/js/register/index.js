@@ -19,18 +19,13 @@ export class Register {
     document.getElementById('add_domicilio').addEventListener('click', () =>{
       managerDomicilios.fillTable()
     })
-    // const managerProductos = new TableManager (inputsTable.productos) ;
-    // document.getElementById('add_producto').addEventListener('click', () =>{
-    //   managerProductos.fillTable()
-    // })
-    // const managerMediosDigitales = new TableManager (inputsTable.medios_digitales) ;
-    // document.getElementById('add_medio_digital').addEventListener('click', () =>{
-    //   managerMediosDigitales.fillTable()
-    // })
-    // const managerDocumentos = new TableManager (inputsTable.documentos_adicionales) ;
-    // document.getElementById('add_documento_adicional').addEventListener('click', () =>{
-    //   managerDocumentos.fillTable()
-    // })
-    
+    const managerProductos = new TableManager (inputsTable.productos) ;
+    document.getElementById('add_producto').addEventListener('click', () =>{
+      managerProductos.fillTable()
+    })
+    const managerMediosDigitales = new TableManager (inputsTable.medios_digitales) ;
+    document.getElementById('add_red_social').addEventListener('click', () =>{
+      managerMediosDigitales.fillTable()
+    })    
   }
 }

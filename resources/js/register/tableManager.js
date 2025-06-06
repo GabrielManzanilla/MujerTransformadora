@@ -67,11 +67,13 @@ export class TableManager{
 		const newRow = this.tableBody.insertRow();
 		data.forEach((cellData, i) => {
 			const newCell = newRow.insertCell();
+			newCell.className = 'md:px-6 py-4 text-wrap text-center';
 			newCell.textContent = cellData;
 		});
 
 		//boton para eliminar la fila
 		const optionsCell = newRow.insertCell();
+		optionsCell.className = 'flex justify-center items-center h-full md:px-6 py-4 text-wrap text-center';
 		const deleteButton = document.createElement('button');
 		deleteButton.textContent = 'Eliminar';
 		deleteButton.className = 'bg-primary rounded-md text-white  font-bold px-2 py-1 hover:bg-red-700 hover:cursor-pointer transition duration-150';

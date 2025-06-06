@@ -1,13 +1,5 @@
 export const inputsTable = {
-	registros_adicionales: {
-		table: document.getElementById('registros_fiscales_table'),
-		message: document.getElementById('message_registros_fiscales_table_empty'),
-		inputs: [
-			document.getElementById('nombre_registro'),
-			document.getElementById('clave_registro')
-		],
-		json: document.getElementById('registros_json')
-	},
+
 	domicilios: {
 		table: document.getElementById('domicilios_table'),
 		message : document.getElementById('message_domicilios_table_empty'),
@@ -32,21 +24,13 @@ export const inputsTable = {
 		json: document.getElementById('productos_json')
 	},
 	medios_digitales: {
-		table: document.getElementById('medios_digitales_table'),
-		message : document.getElementById('message_medios_digitales_table_empty'),
+		table: document.getElementById('redes_sociales_table'),
+		message : document.getElementById('message_redes_sociales_table_empty'),
 		inputs: [
-			document.getElementById('nombre_medio_adicional'),
-			document.getElementById('medio_adicional_registro')
+			document.getElementById('red_social'),
+			document.getElementById('nombre_red_social'),
+			document.getElementById('enlace_red_social')
 		],
-		json: document.getElementById('medios_digitales_json')
-	},
-	documentos_adicionales:{
-		table: document.getElementById('documentos_adicionales_table'),
-		message : document.getElementById('message_documentos_adicionales_table_empty'),
-		inputs: [
-			document.getElementById('denominacion_documento_adicional'),
-			document.getElementById('nombre_documento_adicional')
-		],
-		json: document.getElementById('documentos_adicionales_json')
+		json: document.getElementById('redes_sociales_json')
 	}
 }
