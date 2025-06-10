@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tb_datos_fiscales', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('pk_dato_fiscal')->primary();
             $table->foreignUuid('fk_user')->index()->constrained('users')->onDelete('cascade');
 
             $table->string('str_regimen')->comment('Régimen fiscal del contribuyente');
