@@ -2,10 +2,12 @@
 	<div class="w-full h-full p-1">
 		<div class="w-full h-full rounded-lg bg-white shadow-md p-2 m-0">
 			<x-form action="{{ route('solicitud.store') }}" formTitle="Formulario de Solicitud">
+				
 				<x-fieldset label="Datos Fiscales" step="1">
 					<x-input-solicitud id="actividad_economica" label="Actividad Economica" type="text" />
 					<x-input-solicitud name="regimen" label="Regimen" type="text" />
 					<x-input-solicitud name="nombre_comercial" label="Nombre Comercial" type="text" />
+					<x-input-solicitud name="numero_empleados" label="Numero de Empleados" type="number" />
 					<x-input-solicitud name="razon_social" label="Razon Social" type="text" />
 					<x-input-solicitud name="clave_imss" label="Clave IMSS" type="text" />
 					<x-input-solicitud name="clave_impi" label="Clave IMPI" type="text" />
@@ -13,6 +15,7 @@
 					<x-input-solicitud name="clave_sat" label="Clave SAT" type="text" />
 					<x-input-solicitud name="clave_cif" label="Clave CIF" type="text" />
 				</x-fieldset>
+
 				<x-fieldset label="Domicilios" step="2">
 					<x-slot name="dinamic_input">
 						<x-dinamic-input :headers="['Direccion', 'Estado', 'Municipio', 'Localidad']" id_button="add_domicilio"
@@ -24,6 +27,7 @@
 						</x-dinamic-input>
 					</x-slot>
 				</x-fieldset>
+
 				<x-fieldset label="Productos" step="3">
 					<x-slot name="dinamic_input">
 						<x-dinamic-input :headers="['Nombre Producto', 'Descripcion', 'Produccion Mensual', 'Ventas Mensuales', 'Ventas Anuales']"
@@ -36,6 +40,7 @@
 						</x-dinamic-input>
 					</x-slot>
 				</x-fieldset>
+
 				<x-fieldset label="Redes Sociales" step="4">
 					<x-slot name="dinamic_input">
 						<x-dinamic-input :headers="['Red Social', 'Nombre', 'Enlace']" id_button="add_red_social" id_message="message_redes_sociales_table_empty" id_table="redes_sociales_table" id_json="redes_sociales_json">
@@ -45,6 +50,7 @@
 						</x-dinamic-input>
 					</x-slot>	
 				</x-fieldset>
+
 				<x-fieldset label="Documentos" step="5">
 					<div>
 						<x-input-label for="Constancia_imss" value="Constancia IMSS" class="pl-4" />
