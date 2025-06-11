@@ -4,7 +4,7 @@
 			<x-form action="{{ route('solicitud.store') }}" formTitle="Formulario de Solicitud">
 				
 				<x-fieldset label="Datos Fiscales" step="1">
-					<x-input-solicitud id="actividad_economica" label="Actividad Economica" type="text" />
+					<x-input-solicitud name="actividad_economica" label="Actividad Economica" type="text" />
 					<x-input-solicitud name="regimen" label="Regimen" type="text" />
 					<x-input-solicitud name="nombre_comercial" label="Nombre Comercial" type="text" />
 					<x-input-solicitud name="numero_empleados" label="Numero de Empleados" type="number" />

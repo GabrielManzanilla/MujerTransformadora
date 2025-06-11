@@ -37,14 +37,17 @@
         </thead>
         <tbody>
             @foreach ($data as $item)
-                <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 ">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        Status
-                    </th>
+                <tr classlseifbg-white border-b border-gray-200 hover:bg-gray-50 " onclick="window.location.href='{{ route('solicitud.show', $item['pk_dato_fiscal']) }}'">
                     @foreach ($items as $field)
+                        @if ($field=== 'str_status')
                         <td class="px-6 py-4">
-                            {{ $item[$field] ?? 'N/A' }}
+                            <x-status :status="$item[$field]" />
                         </td>
+                        @elseif ($item[$field] )
+                        <td class="px-6 py-4">
+                            {{ $item[$field]  }}
+                        </td>
+                        @endif
                     @endforeach
                     <td class="px-6 py-4 text-right">
                         <a href="#" class="font-medium text-secondary hover:underline">Edit</a>

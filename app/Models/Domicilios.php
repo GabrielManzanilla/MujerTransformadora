@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Domicilios extends Model
 {
     //
+    use HasUuids;
     protected $table = 'tb_domicilios';
     protected $primaryKey = 'pk_domicilio';
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
-        'pk_domicilio',
         'fk_dato_fiscal',
         'str_direccion',
         'str_estado',

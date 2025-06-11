@@ -25,7 +25,7 @@ class DatosFiscales extends Model
         'str_clave_sat',
         'str_clave_cif',
     ];
-    //
+    //llave foranea para relacionar con el usuario
     public function user()
     {
         return $this->belongsTo(User::class, 'fk_user', 'id');
@@ -39,13 +39,13 @@ class DatosFiscales extends Model
     {
         return $this->hasMany(Productos::class, 'fk_dato_fiscal', 'pk_dato_fiscal');
     }
-    // public function files()
-    // {
-    //     return $this->morphMany(FileModel::class, 'fileable');
-    // }
-    // public function redesSociales()
-    // {
-    //     return $this->hasMany(RedSocial::class, 'fk_dato_fiscal', 'pk_dato_fiscal');
-    // }
+    public function redesSociales()
+    {
+        return $this->hasMany(RedesSociales::class, 'fk_dato_fiscal', 'pk_dato_fiscal');
+    }
+    public function files()
+    {
+        return $this->morphMany(FileModel::class, 'fileable');
+    }
 
 }

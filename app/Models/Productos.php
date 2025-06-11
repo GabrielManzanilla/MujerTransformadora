@@ -15,7 +15,6 @@ class Productos extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'pk_producto',
         'fk_dato_fiscal',
         'str_nombre',
         'str_descripcion',
