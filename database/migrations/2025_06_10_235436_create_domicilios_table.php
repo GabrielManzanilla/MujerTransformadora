@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('tb_domicilios', function (Blueprint $table) {
             $table->uuid('pk_domicilio')->primary();
-            $table->foreignUuid('fk_user')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('fk_dato_fiscal')
+                ->constrained('tb_datos_fiscales')
+                ->onDelete('cascade');
             $table->string('str_direccion');
             $table->string('str_estado');
             $table->string('str_municipio');

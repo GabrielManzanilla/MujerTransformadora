@@ -31,13 +31,13 @@ class DatosFiscales extends Model
         return $this->belongsTo(User::class, 'fk_user', 'id');
     }
     
+    public function domicilios()
+    {
+        return $this->hasMany(Domicilios::class, 'fk_dato_fiscal', 'pk_dato_fiscal');
+    }
     // public function files()
     // {
     //     return $this->morphMany(FileModel::class, 'fileable');
-    // }
-    // public function domicilios()
-    // {
-    //     return $this->hasMany(Domicilio::class, 'fk_dato_fiscal', 'pk_dato_fiscal');
     // }
     // public function productos()
     // {
