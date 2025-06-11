@@ -3,7 +3,10 @@
 @props(['title' => '', 
         'headers' => [], 
         'items' => [], 
-        'data' => []])
+        'data' => [],
+        'route',
+        'param'
+])
 
 
 <div class="container mx-auto px-4 py-6 ">
@@ -37,7 +40,7 @@
         </thead>
         <tbody>
             @foreach ($data as $item)
-                <tr classlseifbg-white border-b border-gray-200 hover:bg-gray-50 " onclick="window.location.href='{{ route('solicitud.show', $item['pk_dato_fiscal']) }}'">
+                <tr classlseifbg-white border-b border-gray-200 hover:bg-gray-50 " onclick="window.location.href='{{ route($route, $item[$param]) }}'">
                     @foreach ($items as $field)
                         @if ($field=== 'str_status')
                         <td class="px-6 py-4">
