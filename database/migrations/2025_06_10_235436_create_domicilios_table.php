@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('domicilios', function (Blueprint $table) {
-            $table->id();
+        Schema::create('tb_domicilios', function (Blueprint $table) {
+            $table->uuid('pk_domicilio')->primary();
+            $table->foreignUuid('fk_user')->constrained('users')->onDelete('cascade');
+            $table->string('str_direccion');
+            $table->string('str_estado');
+            $table->string('str_municipio');
+            $table->string('str_localidad');
+
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('domicilios');
+        Schema::dropIfExists('tb_domicilios');
     }
 };
