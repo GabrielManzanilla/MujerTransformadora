@@ -11,7 +11,7 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    private function upload_file(Request $request, $nombre_archivo, $user, $solicitud_id = null)
+    private function upload_file(Request $request, $nombre_archivo, $user, $solicitud = null)
     {
 
         //comprueba si el archivo fue subido o lanza un error
@@ -28,8 +28,8 @@ class FileController extends Controller
 
             //si solo existe un id de usuario, se guarda en la carpeta del perfil del usuario
             //si existe un id de solicitud, se guarda en la carpeta del perfil del usuario y la solicitud
-            $carpeta = $solicitud_id
-                ? "usuarios/{$user->id}/solicitud/{$solicitud_id}"
+            $carpeta = $solicitud
+                ? "usuarios/{$user->id}/solicitud/{$solicitud->pk_dato_fiscal}/documentos"
                 : "usuarios/{$user->id}/documentos";
 
             $extension = $archivo->getClientOriginalExtension();
@@ -62,9 +62,9 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $nombre_archivo, $user, $solicitud_id = null)
+    public function store(Request $request, $nombre_archivo, $user, $solicitud = null)
     {   //obtiene la respuesta de la funcion upload_file 
-        $response = $this->upload_file($request, $nombre_archivo, $user, $solicitud_id);
+        $response = $this->upload_file($request, $nombre_archivo, $user, $solicitud);
 
         //verifica si la respuesta es exitosa y obtiene el path del archivo
         if ($response->getStatusCode() === 201) {
@@ -72,11 +72,19 @@ class FileController extends Controller
             $filePath = $responseData->file_path;
 
             //guarda la relacion del archivo con el usuario
-            $user->perfil->files()->create([
-                'str_path_archivo' => $filePath,
-                'str_categoria_archivo' => $nombre_archivo,
-                'str_nombre_archivo' => basename($filePath),
-            ]);
+            if ($solicitud) {
+                $solicitud->files()->create([
+                    'str_path_archivo' => $filePath,
+                    'str_categoria_archivo' => $nombre_archivo,
+                    'str_nombre_archivo' => basename($filePath),
+                ]);
+            } else {
+                $user->perfil->files()->create([
+                    'str_path_archivo' => $filePath,
+                    'str_categoria_archivo' => $nombre_archivo,
+                    'str_nombre_archivo' => basename($filePath),
+                ]);
+            }
         } else {
 
             return $response; // Return the error response directly
@@ -88,13 +96,12 @@ class FileController extends Controller
      */
     public function show($propietario, $tipo_archivo)
     {
-        if ($propietario == "perfil") {
-            $origin = auth()->user()->perfil;
-        } else if ($propietario == "solicitud") {
-            $origin = auth()->user()->perfil->solicitudes;
-        } else {
-            return response()->json(['message' => 'Invalid owner type'], 400);
-        }
+        $origin = $propietario == "perfil"
+            ? auth()->user()->perfil
+            : auth()->user()->datosFiscales
+                ->where('pk_dato_fiscal', $propietario)
+                ->firstOrFail();
+        
         $archivo = $origin->files()
             ->where('str_categoria_archivo', $tipo_archivo)
             ->first();
@@ -119,14 +126,13 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $nombre_archivo, $user, $solicitud_id = null)
+    public function update(Request $request, $nombre_archivo, $user, $solicitud = null)
     {
-        if ($solicitud_id) {
-            $solicitud = $user->perfil->solicitudes()->where('pk_solicitud_id', $solicitud_id)->firstOrFail();
-            $origin = $solicitud;
-        } else {
-            $origin = $user->perfil;
-        }
+        $origin = $solicitud
+            ?$user->datosFiscales
+                ->where('pk_solicitud_id', $solicitud->pk_dato_fiscal)->firstOrFail()
+            :$user->perfil;
+        
 
         $archivo = $origin->files()
             ->where('str_categoria_archivo', $nombre_archivo)
@@ -135,7 +141,7 @@ class FileController extends Controller
         Storage::disk('local')->delete($archivo->str_path_archivo);
         $archivo->delete();
 
-        $this->store($request, $nombre_archivo, $user, $solicitud_id);
+        $this->store($request, $nombre_archivo, $user, $solicitud);
 
     }
 

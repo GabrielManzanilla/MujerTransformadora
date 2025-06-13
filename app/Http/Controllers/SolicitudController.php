@@ -105,7 +105,7 @@ class SolicitudController extends Controller
                 'double_ventas_anuales' => $producto[4],
             ]);
         }
-        
+
         //Decodificar el json de redes sociales y subir sus datos correspondientes para llenar la tabla
         $redes_sociales_json = json_decode($request->redes_sociales_json, true);
         foreach ($redes_sociales_json as $red_social) {
@@ -118,11 +118,15 @@ class SolicitudController extends Controller
 
         $file = app('App\Http\Controllers\FileController');
         $nombre_archivos = [
-            'constancia_imss', 'constancia_impi', 'constancia_affy', 'constancia_sat', 'constancia_cif'
+            'constancia_imss',
+            'constancia_impi',
+            'constancia_affy',
+            'constancia_sat',
+            'constancia_cif'
         ];
-        foreach($nombre_archivos as $nombre) {
-            $file->store($request, $nombre, $user, $datosFiscales->pk_dato_fiscal); 
-            
+        foreach ($nombre_archivos as $nombre) {
+            $file->store($request, $nombre, $user, $datosFiscales);
+
         }
         return redirect()->route('solicitud.show', $datosFiscales->pk_dato_fiscal);
     }
@@ -134,8 +138,21 @@ class SolicitudController extends Controller
     {
         //
         $datoFiscal = auth()->user()->datosFiscales()->findOrFail($id);
+        $status_imss = $datoFiscal->files()->where('str_categoria_archivo', 'constancia_imss')->first();
+        $status_impi = $datoFiscal->files()->where('str_categoria_archivo', 'constancia_impi')->first();
+        $status_affy = $datoFiscal->files()->where('str_categoria_archivo', 'constancia_affy')->first();
+        $status_sat = $datoFiscal->files()->where('str_categoria_archivo', 'constancia_sat')->first();
+        $status_cif = $datoFiscal->files()->where('str_categoria_archivo', 'constancia_cif')->first();
 
-        return view("solicitud.show", compact('datoFiscal'));
+
+        return view("solicitud.show", [
+            'datoFiscal'  => $datoFiscal,
+            'status_imss' => $status_imss->str_status,
+            'status_impi' => $status_impi->str_status,
+            'status_affy' => $status_affy->str_status,
+            'status_sat' => $status_sat->str_status,
+            'status_cif' => $status_cif->str_status,
+        ]);
     }
 
     /**

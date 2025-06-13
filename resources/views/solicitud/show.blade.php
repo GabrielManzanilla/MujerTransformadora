@@ -28,23 +28,36 @@
 							</div>
 						</div>
 						<div class="bg-gray-100 p-4 rounded-lg shadow flex-1">
-							<x-table title="Domicilios Asociados" :data="$datoFiscal->domicilios" :headers="['Direccion', 'Estado', 'Municipio', 'Localidad']"
-								:items="['str_direccion', 'str_estado', 'str_municipio', 'str_localidad']" />
+							<x-table title="Domicilios Asociados" :data="$datoFiscal->domicilios" :headers="['Direccion', 'Estado', 'Municipio', 'Localidad']" :items="['str_direccion', 'str_estado', 'str_municipio', 'str_localidad']" />
 						</div>
 
 						<div class="bg-gray-100 p-4 rounded-lg shadow flex-1">
-							<x-table title="Productos" :data="$datoFiscal->productos" :headers="['Nombre', 'Descripcion', 'Prod. Mensual', 'Ventas Mensuales', 'Ventas Anuales']"
-								:items="['str_nombre', 'str_descripcion', 'int_produccion_mensual', 'double_ventas_mensuales', 'double_ventas_anuales']" />
+							<x-table title="Productos" :data="$datoFiscal->productos" :headers="['Nombre', 'Descripcion', 'Prod. Mensual', 'Ventas Mensuales', 'Ventas Anuales']" :items="['str_nombre', 'str_descripcion', 'int_produccion_mensual', 'double_ventas_mensuales', 'double_ventas_anuales']" />
 
 						</div>
 
 						<div class="bg-gray-100 p-4 rounded-lg shadow flex-1">
-							<x-table title="Redes Sociales" :data="$datoFiscal->redesSociales" :headers="['Red Social', 'Perfil', 'URL de Perfil']"
-								:items="['str_nombre_red_social', 'str_perfil_red_social', 'str_url_red_social']" />
+							<x-table title="Redes Sociales" :data="$datoFiscal->redesSociales" :headers="['Red Social', 'Perfil', 'URL de Perfil']" :items="['str_nombre_red_social', 'str_perfil_red_social', 'str_url_red_social']" />
 						</div>
 
 
 						<!-- Añadir seccion de los documentos -->
+						<div class="bg-gray-100 mt-3 p-4 rounded-lg shadow overflow-x-auto">
+							<h3 class="font-bold text-lg mb-2">Documentos</h3>
+							<div class="flex flex-row gap-2">
+								<x-link-document propietario="{{ $datoFiscal->pk_dato_fiscal }}" tipo_documento="constancia_sat"
+								titulo="Costancia SAT" status="{{ $status_sat }}"/>
+								<x-link-document propietario="{{ $datoFiscal->pk_dato_fiscal }}" tipo_documento="constancia_imss"
+								titulo="Costancia IMSS" status="{{ $status_imss }}"/>
+								<x-link-document propietario="{{ $datoFiscal->pk_dato_fiscal }}" tipo_documento="constancia_impi"
+									titulo="Costancia IMPI" status="{{ $status_impi }}"/>
+								<x-link-document propietario="{{ $datoFiscal->pk_dato_fiscal }}" tipo_documento="constancia_affy"
+										titulo="Costancia AFFY" status="{{ $status_affy }}"/>
+								<x-link-document propietario="{{ $datoFiscal->pk_dato_fiscal }}" tipo_documento="constancia_cif"
+								titulo="Costancia CIF" status="{{$status_cif}}" />
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
