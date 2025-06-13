@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="flex flex-col flex-1 md:flex-4 w-full px-1 min-h-0">
-			<form class="flex flex-1 w-full min-h-0" action="{{ $action }}" method="POST" id="registerForm">
+			<form class="flex flex-1 w-full min-h-0" action="{{ $action }}" enctype="multipart/form-data" method="POST" id="registerForm">
 				@csrf
 				{{$slot}}
 			</form>

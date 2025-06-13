@@ -116,6 +116,14 @@ class SolicitudController extends Controller
             ]);
         }
 
+        $file = app('App\Http\Controllers\FileController');
+        $nombre_archivos = [
+            'constancia_imss', 'constancia_impi', 'constancia_affy', 'constancia_sat', 'constancia_cif'
+        ];
+        foreach($nombre_archivos as $nombre) {
+            $file->store($request, $nombre, $user, $datosFiscales->pk_dato_fiscal); 
+            
+        }
         return redirect()->route('solicitud.show', $datosFiscales->pk_dato_fiscal);
     }
 
