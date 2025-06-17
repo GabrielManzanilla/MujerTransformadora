@@ -42,18 +42,21 @@
             </thead>
             <tbody>
                 @foreach ($data as $item)
-                    <tr class="bg-white border-b border-gray-200 hover:bg-gray-50"
-                        @if(isset($route) && isset($param) && $route && $param)
+                    <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
+                   
+                        @if(isset($show_route) && isset($param))
                             onclick="window.location.href='{{ route($show_route, $item[$param]) }}'"
                         @endif
                     >
                         @foreach ($items as $field)
                             @if ($field === 'str_status')
                                 <td class="px-6 py-4">
+
                                     <x-status :status="$item[$field]" />
                                 </td>
                             @elseif ($item[$field])
                                 <td class="px-6 py-4">
+
                                     {{ $item[$field] }}
                                 </td>
                             @endif
