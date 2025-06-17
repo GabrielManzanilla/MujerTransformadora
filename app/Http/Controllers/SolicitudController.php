@@ -160,6 +160,9 @@ class SolicitudController extends Controller
      */
     public function edit(string $id)
     {
+        // Debug para ver el id recibido y la URL generada
+        $updateRoute = route('solicitud.update', $id);
+
         //
         $datoFiscal = auth()->user()->datosFiscales()->findOrFail($id);
 
@@ -191,6 +194,7 @@ class SolicitudController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        dd('updated');
     }
 
     /**

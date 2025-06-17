@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', fn() => view('welcome'))->name('home');
-Route::get('/contact', fn ()=> view('contact'))->name('contact');
+Route::get('/contact', fn() => view('contact'))->name('contact');
 Route::get('/about', fn() => view('about'))->name('about');
 
 Route::get('/archivo/{propietario}/{tipo_archivo}', [\App\Http\Controllers\FileController::class, 'show'])
@@ -50,4 +50,4 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
