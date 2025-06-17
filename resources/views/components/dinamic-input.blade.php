@@ -4,6 +4,7 @@
 	'id_table' => null,
 	'id_message' => null,
 	'id_json' => null,
+	'value'=>''
 	
 ])
 
@@ -32,6 +33,6 @@
 						datos disponibles</td>
 				</tr>
 			</table>
-			<input type="hidden" name="{{ $id_json }}" id="{{$id_json}}" class="">
+			<input type="hidden" name="{{ $id_json }}" id="{{$id_json}}" class="" value="{{ $value }}">
 	</div>
 </div>

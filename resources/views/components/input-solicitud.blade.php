@@ -5,6 +5,7 @@
 		'type' => 'text',
 		'options' => [],
 		'class' => '',
+		'value' => ''
 ])
 
 @php
@@ -21,6 +22,7 @@
 		@endforeach
 	</select>
 	@else
-	<input type="{{ $type }}" id="{{$id}}" name="{{ $name }}" class="border border-gray-300 rounded p-2 w-full" required>
+	<input type="{{ $type }}" id="{{$id}}" name="{{ $name }}" class="border border-gray-300 rounded p-2 w-full" 
+	value="{{ $value }}" required>
 	@endif
 </div>

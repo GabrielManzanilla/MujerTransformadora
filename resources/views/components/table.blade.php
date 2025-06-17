@@ -6,7 +6,8 @@
     'items' => [],
     'data' => [],
     'actions' => false,
-    'route',
+    'show_route',
+    'edit_route',
     'param'
 ])
 
@@ -43,7 +44,7 @@
                 @foreach ($data as $item)
                     <tr class="bg-white border-b border-gray-200 hover:bg-gray-50"
                         @if(isset($route) && isset($param) && $route && $param)
-                            onclick="window.location.href='{{ route($route, $item[$param]) }}'"
+                            onclick="window.location.href='{{ route($show_route, $item[$param]) }}'"
                         @endif
                     >
                         @foreach ($items as $field)
@@ -59,7 +60,7 @@
                         @endforeach
                         @if ($actions)
                             <td class="px-6 py-4 text-center">
-                                <a href="{{ route($route, $item[$param]) }}" class="font-medium text-secondary hover:underline">Edit</a>
+                                <a href="{{ route($edit_route, $item[$param]) }}" class="font-medium text-secondary hover:underline">Edit</a>
                             </td>
                         @endif
                     </tr>

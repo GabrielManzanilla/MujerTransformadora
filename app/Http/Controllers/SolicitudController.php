@@ -146,7 +146,7 @@ class SolicitudController extends Controller
 
 
         return view("solicitud.show", [
-            'datoFiscal'  => $datoFiscal,
+            'datoFiscal' => $datoFiscal,
             'status_imss' => $status_imss->str_status,
             'status_impi' => $status_impi->str_status,
             'status_affy' => $status_affy->str_status,
@@ -161,6 +161,28 @@ class SolicitudController extends Controller
     public function edit(string $id)
     {
         //
+        $datoFiscal = auth()->user()->datosFiscales()->findOrFail($id);
+
+        $domicilios = json_encode($datoFiscal->domicilios->map(fn($domicilio) => [
+            $domicilio->str_direccion,
+            $domicilio->str_estado,
+            $domicilio->str_municipio,
+            $domicilio->str_localidad,
+        ]));
+
+        $productos = json_encode($datoFiscal->productos->map(fn($producto) => [
+            $producto->str_nombre,
+            $producto->str_descripcion,
+            $producto->int_produccion_mensual,
+            $producto->double_ventas_mensuales,
+            $producto->double_ventas_anuales,
+        ]));
+        $redes_sociales = json_encode($datoFiscal->redesSociales->map(fn($red_social) => [
+            $red_social->str_nombre_red_social,
+            $red_social->str_perfil_red_social,
+            $red_social->str_url_red_social,
+        ]));
+        return view("solicitud.form", compact('datoFiscal', 'domicilios', 'productos', 'redes_sociales'));
     }
 
     /**
