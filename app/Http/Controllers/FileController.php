@@ -63,31 +63,44 @@ class FileController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request, $nombre_archivo, $user, $solicitud = null)
-    {   //obtiene la respuesta de la funcion upload_file 
-        $response = $this->upload_file($request, $nombre_archivo, $user, $solicitud);
-
-        //verifica si la respuesta es exitosa y obtiene el path del archivo
-        if ($response->getStatusCode() === 201) {
-            $responseData = json_decode($response->getContent());
-            $filePath = $responseData->file_path;
-
-            //guarda la relacion del archivo con el usuario
-            if ($solicitud) {
-                $solicitud->files()->create([
-                    'str_path_archivo' => $filePath,
-                    'str_categoria_archivo' => $nombre_archivo,
-                    'str_nombre_archivo' => basename($filePath),
-                ]);
-            } else {
-                $user->perfil->files()->create([
-                    'str_path_archivo' => $filePath,
-                    'str_categoria_archivo' => $nombre_archivo,
-                    'str_nombre_archivo' => basename($filePath),
-                ]);
+    {
+        try {
+            // Skip if no file was uploaded
+            if (!$request->hasFile($nombre_archivo)) {
+                return;
             }
-        } else {
 
-            return $response; // Return the error response directly
+            // Get the response from the upload_file function
+            $response = $this->upload_file($request, $nombre_archivo, $user, $solicitud);
+
+            // Verify if the response is successful and get the file path
+            if ($response->getStatusCode() === 201) {
+                $responseData = json_decode($response->getContent());
+                $filePath = $responseData->file_path;
+
+                // Save the file relationship with the user or solicitud
+                if ($solicitud) {
+                    $solicitud->files()->create([
+                        'str_path_archivo' => $filePath,
+                        'str_categoria_archivo' => $nombre_archivo,
+                        'str_nombre_archivo' => basename($filePath),
+                        'str_status' => 'pendiente', // Default status
+                    ]);
+                } else {
+                    $user->perfil->files()->create([
+                        'str_path_archivo' => $filePath,
+                        'str_categoria_archivo' => $nombre_archivo,
+                        'str_nombre_archivo' => basename($filePath),
+                        'str_status' => 'pendiente', // Default status
+                    ]);
+                }
+            } else {
+                \Log::warning("File upload failed for {$nombre_archivo}: " . $response->getContent());
+                return $response; // Return the error response directly
+            }
+        } catch (\Exception $e) {
+            \Log::error("Exception in store method: " . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -101,7 +114,7 @@ class FileController extends Controller
             : auth()->user()->datosFiscales
                 ->where('pk_dato_fiscal', $propietario)
                 ->firstOrFail();
-        
+
         $archivo = $origin->files()
             ->where('str_categoria_archivo', $tipo_archivo)
             ->first();
@@ -129,18 +142,20 @@ class FileController extends Controller
     public function update(Request $request, $nombre_archivo, $user, $solicitud = null)
     {
         $origin = $solicitud
-            ?$user->datosFiscales
-                ->where('pk_solicitud_id', $solicitud->pk_dato_fiscal)->firstOrFail()
-            :$user->perfil;
-        
+            ? $solicitud // Use the solicitud directly since it's already been fetched
+            : $user->perfil;
 
         $archivo = $origin->files()
             ->where('str_categoria_archivo', $nombre_archivo)
             ->first();
 
-        Storage::disk('local')->delete($archivo->str_path_archivo);
-        $archivo->delete();
+        // Only delete if the file exists
+        if ($archivo) {
+            Storage::disk('local')->delete($archivo->str_path_archivo);
+            $archivo->delete();
+        }
 
+        // Store the new file
         $this->store($request, $nombre_archivo, $user, $solicitud);
 
     }

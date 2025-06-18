@@ -47,7 +47,7 @@
 					<x-fieldset label="Productos" step="3">
 						<x-slot name="dinamic_input">
 							<x-dinamic-input :headers="['Nombre Producto', 'Descripcion', 'Produccion Mensual', 'Ventas Mensuales', 'Ventas Anuales']" id_button="add_producto" id_message="message_productos_table_empty"
-								id_table="productos_table" id_json="productos_json">
+								id_table="productos_table" id_json="productos_json" value="{!! old('productos', $productos ?? '') !!}">
 								<x-input-solicitud id="nombre_producto" label="Nombre Producto" type="text" />
 								<x-input-solicitud id="descripcion_producto" label="Descripcion" type="text" class="lg:col-span-2" />
 								<x-input-solicitud id="produccion_mensual" label="Produccion Mensual" type="number" />
@@ -61,7 +61,7 @@
 						<x-slot name="dinamic_input">
 							<x-dinamic-input :headers="['Red Social', 'Nombre', 'Enlace']" id_button="add_red_social"
 								id_message="message_redes_sociales_table_empty" id_table="redes_sociales_table"
-								id_json="redes_sociales_json">
+								id_json="redes_sociales_json" value="{!! old('redes_sociales', $redes_sociales ?? '') !!}">
 								<x-input-solicitud id="red_social" label="Red Social" type="select" :options="['Facebook' => 'Facebook', 'Twitter' => 'Twitter', 'Instagram' => 'Instagram']" />
 								<x-input-solicitud id="nombre_red_social" label="Nombre" type="text" />
 								<x-input-solicitud id="enlace_red_social" label="Enlace" type="text" />
