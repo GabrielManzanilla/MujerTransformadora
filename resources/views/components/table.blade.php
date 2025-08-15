@@ -8,7 +8,7 @@
     'actions' => false,
     'show_route',
     'edit_route',
-    'param'
+    'param' 
 ])
 
 <div class="container mx-auto px-4 py-6">

@@ -8,17 +8,25 @@ use function PHPUnit\Framework\isArray;
 
 class FileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+    /*
+    Esta funcion se encarga de manejar la subida de archivos
+    @param Request $request : es el contenido de la solicitud HTTP
+    @param string $nombre_archivo : es el nombre del archivo que se esta subiendo (ejemplo: acta_nacimiento, curp, etc)
+    @param User $user : es el usuario que esta logueado
+    @param Solicitud|null $solicitud : es el id de la solicitud
+        *Este dato es opcional y puede ser nulo, porque puede que al archivo a subir no se le asocie una solicitud solo a un usuario
+    @return JsonResponse|null
      */
     private function upload_file(Request $request, $nombre_archivo, $user, $solicitud = null)
     {
 
-        //comprueba si el archivo fue subido o lanza un error
+        /* Comprueba si se esta mandando un archivo
+         */
         if (!$request->hasFile($nombre_archivo)) {
-            return response()->json(['message' => 'No file uploaded'], 400);
+            return null;
         } else {
-            //comprueba si el archivo es un array, en caso de que se suban varios archivos y toma el primer archivo
+
+            //comprueba si el archivo es un array y toma el primer archivo
             $archivo = $request->file($nombre_archivo);
             if (is_array($archivo)) {
                 $archivo = $archivo[0];
@@ -26,12 +34,14 @@ class FileController extends Controller
                 $archivo;
             }
 
-            //si solo existe un id de usuario, se guarda en la carpeta del perfil del usuario
-            //si existe un id de solicitud, se guarda en la carpeta del perfil del usuario y la solicitud
+            //si existe un id de solicitud, se guarda en la carpeta de la solicitud
             $carpeta = $solicitud
                 ? "usuarios/{$user->id}/solicitud/{$solicitud->pk_dato_fiscal}/documentos"
                 : "usuarios/{$user->id}/documentos";
 
+            /*Obtiene la extension original del archivo y lo guarda con el nombre (tipo) de archivo y la extension original
+            (ejemplo: acta_nacimiento.pdf)
+            */
             $extension = $archivo->getClientOriginalExtension();
             $filename = "{$nombre_archivo}.{$extension}";
             $ruta_archivo = $archivo->storeAs($carpeta, $filename, 'local');
@@ -45,40 +55,30 @@ class FileController extends Controller
 
     }
 
-
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+    /*
+     * Almacenamieto de la ruta (path) del archivo en la base de datos
+     * @param Request $request : es el contenido de la solicitud HTTP
+     * @param string $nombre_archivo : es el nombre del archivo que se esta subiendo (ejemplo: acta_nacimiento, curp, etc)
+     * @param User $user : es el usuario que esta logueado
+     * @param Solicitud|null $solicitud : es el id de la solicitud
      */
     public function store(Request $request, $nombre_archivo, $user, $solicitud = null)
     {
         try {
-            // Skip if no file was uploaded
+            // Salir si no se ha subido ningún archivo
             if (!$request->hasFile($nombre_archivo)) {
                 return;
             }
 
-            // Get the response from the upload_file function
+            // llamado a la funcion upload_file para almacenar el archivo
             $response = $this->upload_file($request, $nombre_archivo, $user, $solicitud);
 
-            // Verify if the response is successful and get the file path
+            // Verificar si la respuesta es exitosa y obtener la ruta del archivo
             if ($response->getStatusCode() === 201) {
                 $responseData = json_decode($response->getContent());
                 $filePath = $responseData->file_path;
 
-                // Save the file relationship with the user or solicitud
+                // Almacena la ruta del archivo en la base de datos, asociandola a la solicitud o al perfil del usuario
                 if ($solicitud) {
                     $solicitud->files()->create([
                         'str_path_archivo' => $filePath,
@@ -104,21 +104,29 @@ class FileController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
+    /*
+     * Mostrar el archivo especificado 
+     * En el HTML se utiliza la propiedad blank para que se abra en una pestaña nueva
+     * @param string $propietario : es el propietario del archivo (perfil o dato fiscal)
+     * @param string $tipo_archivo : es el tipo de archivo que se esta mostrando
      */
     public function show($propietario, $tipo_archivo)
     {
+        /*
+         * Si el propietario es un perfil, se obtiene el perfil del usuario autenticado, sino se obtiene el dato fiscal correspondiente
+         */
         $origin = $propietario == "perfil"
             ? auth()->user()->perfil
             : auth()->user()->datosFiscales
                 ->where('pk_dato_fiscal', $propietario)
                 ->firstOrFail();
 
+        /* Obtiene el path del archivo con la relacion files, ya sea del perfil o del dato fiscal */
         $archivo = $origin->files()
             ->where('str_categoria_archivo', $tipo_archivo)
             ->first();
 
+        /* Obtiene el archivo del disco*/
         $path = Storage::disk('local')->path(
             $archivo->str_path_archivo
         );
@@ -128,43 +136,35 @@ class FileController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+    /*
+     * Actualizacion o cambio de un archivo
+     *  @param Request $request
+     *  @param string $nombre_archivo
+     *  @param User $user
+     *  @param Solicitud|null $solicitud
      */
     public function update(Request $request, $nombre_archivo, $user, $solicitud = null)
     {
         $origin = $solicitud
-            ? $solicitud // Use the solicitud directly since it's already been fetched
+            ? $solicitud // Si es una solicitud, se utiliza directamente el id de la solicitud, sino utiliza el id del usuario
             : $user->perfil;
 
+        /*
+         * Obtiene el path del archivo correspondiente 
+         */
         $archivo = $origin->files()
             ->where('str_categoria_archivo', $nombre_archivo)
             ->first();
 
-        // Only delete if the file exists
+        // Elimina el archivo utilizando el path
         if ($archivo) {
             Storage::disk('local')->delete($archivo->str_path_archivo);
             $archivo->delete();
         }
 
-        // Store the new file
+        // Almacena el nuevo archivo
         $this->store($request, $nombre_archivo, $user, $solicitud);
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

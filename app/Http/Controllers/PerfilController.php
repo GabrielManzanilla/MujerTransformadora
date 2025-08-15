@@ -8,36 +8,27 @@ use App\Models\User;
 
 class PerfilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+    /*
+     * Muestra el listado de perfiles
      */
     public function index()
     {
         //
+        auth()->user()->role === ('admin')
+            && $users = User::with('perfil')->get();
+        
+        return view('perfil.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-
-    }
-
-    /**
-     * Display the specified resource.
+    /*
+     * Muestra un perfil en específico
+     * @param string|null $id
+     *  **El id puede ser nulo, ya que un administrador puede ver el perfil de otros con su id pero para ver su propio perfil se optiene el id automaticamente
      */
     public function show(string $id = null)
     {
+
+        /* Obtiene el id del usuario correspondiente o el id del usuario logueado */
         $id
         ? $user = User::findOrFail($id)
         : $user = auth()->user();
@@ -45,11 +36,14 @@ class PerfilController extends Controller
 
         $perfil = $user->perfil; // Accede a la relación como propiedad
 
+
+        //Obtiene los archivos (INE, acta de nacimiento, comprobante de domicilio)
         $acta_nacimiento = $perfil->files()->where('str_categoria_archivo', 'acta_nacimiento')->first();
         $comprobante_domicilio = $perfil->files()->where('str_categoria_archivo', 'comprobante_domicilio')->first();
         $ine = $perfil->files()->where('str_categoria_archivo', 'ine')->first();
 
 
+        //regresa la informacion del usuario su perfil y la del estado de los archivos (si estan pendientes, en proceso o aprobados)
         return view('perfil.show', [
             'user' => $user,
             'perfil' => $perfil,
@@ -62,7 +56,7 @@ class PerfilController extends Controller
 
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el perfil especificado.
      */
     public function edit(string $id)
     {
@@ -76,12 +70,13 @@ class PerfilController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el perfil especificado.
      */
     public function update(Request $request, string $id)
     {
         //
         $perfil = PerfilUsuario::findOrFail($id);
+        /*Verificacion de cumplimiento */
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'apellido_paterno' => ['required', 'string', 'max:255'],
@@ -111,6 +106,7 @@ class PerfilController extends Controller
             'str_telefono' => $request->telefono,
         ]);
 
+        // Actualiza los archivos del perfil, llama al FileController
         $file = app('App\Http\Controllers\FileController');
         ($request->hasFile('foto_perfil'))&& $file->update($request, 'foto_perfil', $perfil->user);
         ($request->hasFile('ine'))&&$file->update($request, 'ine', $perfil->user);
@@ -119,13 +115,5 @@ class PerfilController extends Controller
 
         return redirect()->route('perfil.show');
 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

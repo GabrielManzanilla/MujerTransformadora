@@ -87,10 +87,10 @@ class SolicitudController extends Controller
         $domicilios_json = json_decode($request->domicilios_json, true);
         foreach ($domicilios_json as $domicilio) {
             $datosFiscales->domicilios()->create([
-                'str_direccion' => $domicilio[0],
-                'str_estado' => $domicilio[1],
-                'str_municipio' => $domicilio[2],
-                'str_localidad' => $domicilio[3],
+                'str_direccion' => $domicilio['direccion'],
+                'str_estado' => $domicilio['estado'],
+                'str_municipio' => $domicilio['municipio'],
+                'str_localidad' => $domicilio['localidad'],
             ]);
         }
 
@@ -98,11 +98,11 @@ class SolicitudController extends Controller
         $productos_json = json_decode($request->productos_json, true);
         foreach ($productos_json as $producto) {
             $datosFiscales->productos()->create([
-                'str_nombre' => $producto[0],
-                'str_descripcion' => $producto[1],
-                'int_produccion_mensual' => $producto[2],
-                'double_ventas_mensuales' => $producto[3],
-                'double_ventas_anuales' => $producto[4],
+                'str_nombre' => $producto['nombre'],
+                'str_descripcion' => $producto['descripcion'],
+                'int_produccion_mensual' => $producto['produccion_mensual'],
+                'double_ventas_mensuales' => $producto['ventas_mensuales'],
+                'double_ventas_anuales' => $producto['ventas_anuales'],
             ]);
         }
 
@@ -110,9 +110,9 @@ class SolicitudController extends Controller
         $redes_sociales_json = json_decode($request->redes_sociales_json, true);
         foreach ($redes_sociales_json as $red_social) {
             $datosFiscales->redesSociales()->create([
-                'str_nombre_red_social' => $red_social[0],
-                'str_perfil_red_social' => $red_social[1],
-                'str_url_red_social' => $red_social[2],
+                'str_nombre_red_social' => $red_social['nombre_red_social'],
+                'str_perfil_red_social' => $red_social['perfil_red_social'],
+                'str_url_red_social' => $red_social['url_red_social'],
             ]);
         }
 

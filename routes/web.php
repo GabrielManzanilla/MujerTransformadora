@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SolicitudController;
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,7 +13,7 @@ Route::get('/', fn() => view('welcome'))->name('home');
 Route::get('/contact', fn() => view('contact'))->name('contact');
 Route::get('/about', fn() => view('about'))->name('about');
 
-Route::get('/archivo/{propietario}/{tipo_archivo}', [\App\Http\Controllers\FileController::class, 'show'])
+Route::get('/archivo/{propietario}/{tipo_archivo}', [FileController::class, 'show'])
     ->middleware('auth')
     ->name('archivo.show');
 
@@ -48,6 +48,14 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
         Route::patch('/', [ProfileController::class, 'update'])->name('update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
     });
+});
+
+Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
+    // Rutas específicas para el rol de administrador
+        Route::prefix('usuarios')->name('usuarios.')->group(function () {
+            Route::get('/', [PerfilController::class, 'index'])->name('index');
+            Route::get('/{id}', [PerfilController::class, 'show'])->name('show');
+        });
 });
 
 require __DIR__ . '/auth.php';
