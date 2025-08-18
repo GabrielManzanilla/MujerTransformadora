@@ -34,7 +34,7 @@
                     @endforeach
                     @if ($actions)
                         <th scope="col" class="px-6 py-3 font-semibold text-center">
-                            Actions
+                            Opciones
                         </th>
                     
                     @endif
@@ -63,7 +63,7 @@
                         @endforeach
                         @if ($actions)
                             <td class="px-6 py-4 text-center">
-                                <a href="{{ route($edit_route, $item[$param]) }}" class="font-medium text-secondary hover:underline">Edit</a>
+                                <a href="{{ route($edit_route, $item[$param]) }}" class="font-medium text-secondary hover:underline">Editar</a>
                             </td>
                         @endif
                     </tr>
