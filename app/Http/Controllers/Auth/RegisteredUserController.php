@@ -44,10 +44,10 @@ class RegisteredUserController extends Controller
                 'sexo' => ['required', 'string'],
                 'es_mayahablante' => ['required', 'boolean'],
                 'telefono' => ['required', 'string', 'max:20'],
-                'foto_perfil' => ['required', 'image', 'max:2048', 'mimes:jpg,jpeg,png'], // Max 2MB
-                'ine' => ['required', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png'], // Max 10MB
-                'acta_nacimiento' => ['required', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png'], // Max 10MB
-                'comprobante_domicilio' => ['required', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png'], // Max 10MB
+                'foto_perfil' => ['required', 'image', 'max:20480', 'mimes:jpg,jpeg,png'], // Max 20MB
+                'ine' => ['required', 'file', 'max:20480', 'mimes:pdf,jpg,jpeg,png'], // Max 20MB
+                'acta_nacimiento' => ['required', 'file', 'max:20480', 'mimes:pdf,jpg,jpeg,png'], // Max 20MB
+                'comprobante_domicilio' => ['required', 'file', 'max:20480', 'mimes:pdf,jpg,jpeg,png'], // Max 20MB
             ]);
             
         } catch (\Illuminate\Validation\ValidationException $e) {
