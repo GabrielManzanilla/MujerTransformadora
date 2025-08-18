@@ -110,6 +110,7 @@
                             <x-input-label for="ine" :value="__('INE')" />
                             <x-input-file id="ine" accept="pdf/*" />
                             <x-input-error :messages="$errors->get('ine')" class="mt-2" />
+                            <x-input-label :value="__('Ingrese una imagen (png, jpg, jpeg) no mayor a 20MB')" class="underline"/>
                         </div>
 
                         <!--Acta Nacimiento -->
@@ -117,6 +118,7 @@
                             <x-input-label for="acta_nacimiento" :value="__('Acta de Nacimiento')" />
                             <x-input-file id="acta_nacimiento" accept="pdf/*" />
                             <x-input-error :messages="$errors->get('acta_nacimiento')" class="mt-2" />
+                            <x-input-label :value="__('Ingrese una imagen (png, jpg, jpeg) no mayor a 20MB')"  class="underline"/>
                         </div>
 
                         <!-- Comprobante Domicilio -->
@@ -124,6 +126,7 @@
                             <x-input-label for="comprobante_domicilio" :value="__('Comprobante de Domicilio')" />
                             <x-input-file id="comprobante_domicilio" accept="pdf/*" />
                             <x-input-error :messages="$errors->get('comprobante_domicilio')" class="mt-2" />
+                            <x-input-label :value="__('Ingrese una imagen (png, jpg, jpeg) no mayor a 20MB')"  class="underline"/>
                         </div>
 
                         <!-- Teléfono -->
