@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div class="flex-none w-full flex justify-end p-2 space-x-2">
-		<button id="prevBtn">Anterior</button>
-		<button id="nextBtn">Siguiente</button>
+		<x-secondary-button id="prevBtn">Anterior</x-secondary-button>
+		<x-primary-button id="nextBtn">Siguiente</x-primary-button>
 	</div>
 </div>
