@@ -11,8 +11,15 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        $datosFiscales = auth()->user()->datosFiscales()->get();
-        return view("solicitud.index", compact('datosFiscales'));
+        $user = auth()->user()->role;
+        if ($user === 'admin') {
+            // If the user is an admin, show all fiscal data
+            $datosFiscales = \App\Models\DatosFiscales::all();
+            return view("solicitud.index", compact('datosFiscales'));
+        } else {
+            $datosFiscales = auth()->user()->datosFiscales()->get();
+            return view("solicitud.index", compact('datosFiscales'));
+        }
     }
 
     /**
