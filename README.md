@@ -16,7 +16,6 @@ cd MujerTransformadora
 composer install
 
 cp .env.example .env
-
 ```
 
 Es importante modificar en el .env creado los datos correspondientes a la base de datos y descomentar las lineas de codigo
@@ -81,6 +80,6 @@ para que Laravel obtenga los nuevos valores
 # Actualizacion de cambios
 Para obtener los cambios realizados en este repositorio (y si ya esta clonado) unicamente es necesario ejecutar el siguiente comando.
 ```
-cd C:\xampp\htdocs\MujerTransfromadora
+cd C:\xampp\htdocs\MujerTransformadora
 git pull
 ```
