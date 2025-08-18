@@ -1,61 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Requerimientos
+- Entorno xampp o lammp
+	- Apache (PHP)
+	- MySQL
+- Composer
+- Nodejs
+ 
+# Instalacion del Proyecto
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Clonado del repositorio
+```
+cd C:\xampp\htdocs
+git clone https://github.com/GabrielManzanilla/MujerTransformadora.git
 
-## About Laravel
+cd MujerTransformadora
+composer install
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+cp .env.example .env
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Es importante modificar en el .env creado los datos correspondientes a la base de datos y descomentar las lineas de codigo
 
-## Learning Laravel
+## Configuracion de la base de datos
+~~~
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_bd
+DB_USERNAME=root
+DB_PASSWORD=
+~~~
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Posteriormente se debe ejecutar los sigueintes comandos para que el sistema genere los archivos necesarios.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```
+php artisan key:generate
+php artisan migrate
+```
+>[!Note] Estos se encargan de generar su clave unica y de realizar la construccion de la db con la migracion
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Creacion de estilos con node
+Para finalizar es necesario cargar los recursos de node
+```
+npm install
+npm run build 
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Ejecucion del sistema
 
-### Premium Partners
+## Acceso al sitio web
+En las configuraciones de `C:\xampp\apache\conf\httpd.conf`
+~~~
+Listen 0.0.0.0:80
+Requiere all grated
+~~~
+xampp fue configurado para que cualquier equipo en la red pueda ver la pagina para esto se ejecuta el comando:
+ ```
+ ipconfig
+ ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+ se registra la ip obtenida y se abre desde cualquier equipo en la misma red de la siguiente forma
 
-## Contributing
+ _http://__IP__/MujerTransformadora/public_ 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Activacion de entorno de produccion
+En el archivo ==.env== cambiar:
 
-## Code of Conduct
+~~~
+APP_ENV=production
+APP_DEBUG=false
+~~~
+y ejecutar :
+~~~
+php artisan config:clear
+php artisan cache:clear
+~~~
+para que Laravel obtenga los nuevos valores
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Actualizacion de cambios
+Para obtener los cambios realizados en este repositorio (y si ya esta clonado) unicamente es necesario ejecutar el siguiente comando.
+```
+cd C:\xampp\htdocs\MujerTransfromadora
+git pull
+```
