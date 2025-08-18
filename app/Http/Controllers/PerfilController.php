@@ -89,9 +89,9 @@ class PerfilController extends Controller
             'es_mayahablante' => ['required', 'boolean'],
             'telefono' => ['required', 'string', 'max:20'],
             'foto_perfil' => ['nullable', 'image', 'max:2048', 'mimes:jpg,jpeg,png'], // Max 2MB
-            'ine' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-            'acta_nacimiento' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Optional, Max 2MB, PDF only
-            'comprobante_domicilio' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Optional, Max 2MB, PDF only
+            'ine' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+            'acta_nacimiento' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Optional, Max 2MB, PDF or Image
+            'comprobante_domicilio' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Optional, Max 2MB, PDF or Image
         ]);
         $perfil->update([
             'str_nombre' => $request->name,

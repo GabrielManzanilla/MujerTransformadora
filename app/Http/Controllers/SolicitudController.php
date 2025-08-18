@@ -55,11 +55,11 @@ class SolicitudController extends Controller
                 'redes_sociales_json' => ['required', 'json'],
 
                 //documentos de registro
-                'constancia_imss' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_impi' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_affy' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_sat' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_cif' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
+                'constancia_imss' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_impi' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_affy' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_sat' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_cif' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             dd($e->validator->errors()->all());
@@ -224,11 +224,11 @@ class SolicitudController extends Controller
                 'redes_sociales_json' => ['required', 'json'],
 
                 //documentos de registro
-                'constancia_imss' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_impi' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_affy' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_sat' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
-                'constancia_cif' => ['nullable', 'file', 'max:2048', 'mimes:pdf'], // Max 2MB, PDF only
+                'constancia_imss' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_impi' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_affy' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_sat' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
+                'constancia_cif' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'], // Max 2MB, PDF or Image
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             \Log::error('Validation failed: ' . json_encode($e->validator->errors()->all()));
