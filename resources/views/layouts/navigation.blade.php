@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-primary border-b border-gray-100 flex-0 ">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex sm:block justify-between">
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 flex sm:flex-col justify-around">
         <div class="flex items-center justify-between h-16 ">
             <div class="flex">
                 <!-- Logo -->
@@ -15,7 +15,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
+                        {{ __('Inicio') }}
                     </x-nav-link>
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('Contacto')">
                         {{ __('Contacto') }}
@@ -84,12 +84,12 @@
                 @guest
                     <div class="flex flex-row gap-2">
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                            {{ __('Log in') }}
+                            {{ __('Iniciar Seción') }}
                         </x-nav-link>
                         <div
                             class="{{ request()->routeIs('register') ? 'bg-white' : 'bg-secondary' }} text-white rounded-md py-1 px-2 hover:bg-white group-[register]:">
                             <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                                {{ __('Register') }}
+                                {{ __('Registro') }}
                             </x-nav-link>
                         </div>
                 @endguest
@@ -117,7 +117,7 @@
         class="hidden sm:hidden bg-primary/80 right-0 top-16 w-full z-50">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Home') }}
+                {{ __('Inicio') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('Contacto')">
                 {{ __('Contacto') }}
@@ -171,10 +171,10 @@
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                        {{ __('Log in') }}
+                        {{ __('Iniciar Seción') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                        {{ __('Register') }}
+                        {{ __('Registro') }}
                     </x-responsive-nav-link>
                 </div>
             </div>
