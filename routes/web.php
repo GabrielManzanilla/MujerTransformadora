@@ -58,4 +58,12 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
         });
 });
 
+Route::prefix('solicitudes')->name('solicitud.')->group(function () {
+        Route::get('/', [SolicitudController::class, 'index'])->name('index');
+        Route::get('/create', [SolicitudController::class, 'create'])->name('create');
+        Route::post('/', [SolicitudController::class, 'store'])->name('store');
+        Route::get('/{solicitud}', [SolicitudController::class, 'show'])->name('show');
+        Route::get('/{solicitud}/edit', [SolicitudController::class, 'edit'])->name('edit');
+        Route::put('/{solicitud}', [SolicitudController::class, 'update'])->name('update');
+    });
 require __DIR__ . '/auth.php';
