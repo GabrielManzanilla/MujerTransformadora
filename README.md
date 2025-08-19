@@ -82,4 +82,14 @@ Para obtener los cambios realizados en este repositorio (y si ya esta clonado) u
 ```
 cd C:\xampp\htdocs\MujerTransformadora
 git pull
+php artisan migrate:fresh
+php artisan db:seed
 ```
+
+Las dos ultimas lineas de comndo:
+ 1. Limpian la base de datos y la reinician
+ 2. Crea un usuario tipo administrador con, para inicio de secion:
+	 - user: admin@demo.com 
+	 - password: password
+
+**Puede consultar esta info en el /database/seeders/DatabaseSeeder.php
