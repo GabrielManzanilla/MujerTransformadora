@@ -9,6 +9,8 @@
 				@if(auth()->user()->role === 'admin')
 
 					<x-fieldset label="Datos Personales" step="1">
+						<x-input-solicitud name="email" label="Correo Electrónico" type="email"
+							value="{{ old('str_email', $perfil->user->email ?? '') }}" />
 						<x-input-solicitud name="nombre" label="Nombre" type="text"
 							value="{{ old('str_nombre', $datoPersonal->str_nombre ?? '') }}" />
 						<x-input-solicitud name="apellido_paterno" label="Apellido Paterno" type="text"
@@ -34,6 +36,11 @@
 							</select>
 						</div>
 						<div class="mt-4">
+							<x-input-label for="telefono" :value="__('Teléfono')" />
+							<x-text-input id="telefono" class="block mt-1 w-full" type="tel" name="telefono" :value="old('str_telefono', $perfil->str_telefono ?? '')" required autocomplete="tel" />
+							<x-input-error :messages="$errors->get('telefono')" class="mt-2" />
+						</div>
+						<div class="mt-4">
 							<input type="hidden" name="es_mayahablante" value="0">
 							<div class="flex gap-1">
 								<input id="es_mayahablante" type="checkbox" name="es_mayahablante" value="1" {{ old('bool_es_mayahablante', $perfil->bool_es_mayahablante ?? '') == 1 ? 'checked' : '' }}
@@ -41,11 +48,6 @@
 								<x-input-label for="es_mayahablante" :value="__('¿Es mayahablante?')" />
 							</div>
 							<x-input-error :messages="$errors->get('es_mayahablante')" class="mt-2" />
-						</div>
-						<div class="mt-4">
-							<x-input-label for="telefono" :value="__('Teléfono')" />
-							<x-text-input id="telefono" class="block mt-1 w-full" type="tel" name="telefono" :value="old('str_telefono', $perfil->str_telefono ?? '')" required autocomplete="tel" />
-							<x-input-error :messages="$errors->get('telefono')" class="mt-2" />
 						</div>
 						<div class="mt-4 col-span-2">
 							<x-input-label for="foto_perfil" :value="__('Foto de Perfil')" />

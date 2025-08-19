@@ -28,7 +28,7 @@ class DatosFiscales extends Model
     //llave foranea para relacionar con el usuario
     public function user()
     {
-        return $this->belongsTo(User::class, 'fk_user', 'id');
+        return $this->belongsTo(User::class, 'fk_user', 'pk_perfil_id');
     }
     
     public function domicilios()

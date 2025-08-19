@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PerfilUsuario;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class SolicitudController extends Controller
@@ -12,6 +15,7 @@ class SolicitudController extends Controller
     public function index()
     {
         $user = auth()->user()->role;
+
         if ($user === 'admin') {
             // If the user is an admin, show all fiscal data
             $datosFiscales = \App\Models\DatosFiscales::all();
@@ -37,6 +41,31 @@ class SolicitudController extends Controller
     public function store(Request $request)
     {
         //
+        if (auth()->user()->role === 'admin') {
+            try{
+                $request->validate([
+                    'email' => ['required', 'email', 'max:255'],
+                    'nombre' => ['required', 'string', 'max:255'],
+                    'apellido_paterno' => ['required', 'string', 'max:255'],
+                    'apellido_materno' => ['required', 'string', 'max:255'],
+                    'fecha_nacimiento' => ['required', 'date'],
+                    'curp' => ['required', 'string', 'max:255'],
+                    'municipio_nacimiento' => ['required', 'string', 'max:255'],
+                    'estado_nacimiento' => ['required', 'string', 'max:255'],
+                    'sexo' => ['required', 'string', 'max:255'],
+                    'es_mayahablante' => ['required', 'boolean'],
+                    'telefono' => ['required', 'string', 'max:255'],
+                    'foto_perfil' => ['nullable', 'file', 'max:2048', 'mimes:jpg,jpeg,png'],
+                    'ine' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'],
+                    'acta_nacimiento' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'],
+                    'comprobante_domicilio' => ['nullable', 'file', 'max:2048', 'mimes:pdf,jpg,jpeg,png'],
+                ]);
+            } catch (\Illuminate\Validation\ValidationException $e) {
+                dd($e->validator->errors()->all());
+                return redirect()->back()->withErrors($e->validator);
+            }
+        }
+
         try {
             $request->validate([
 
@@ -75,8 +104,27 @@ class SolicitudController extends Controller
 
         //Regsitro de los datos fiscales
         // (Este se usara como base para el registro de los domicilios, productos y redes sociales)
-        $user = auth()->user();
-        $datosFiscales = $user->datosFiscales()->create([
+        if (auth()->user()->role=== 'admin') {
+            $user = User::create([
+                'email' => $request->email,
+            ]);
+            $perfil = $user->perfil()->create([
+                'str_nombre' => $request->nombre,
+                'str_apellido_paterno' => $request->apellido_paterno,
+                'str_apellido_materno' => $request->apellido_materno,
+                'dt_fecha_nacimiento' => $request->fecha_nacimiento,
+                'str_curp' => $request->curp,
+                'str_municipio_nacimiento' => $request->municipio_nacimiento,
+                'str_estado_nacimiento' => $request->estado_nacimiento,
+                'str_sexo' => $request->sexo,
+                'bool_es_mayahablante' => $request->es_mayahablante,
+                'str_telefono' => $request->telefono,
+            ]);
+        } else {
+            $perfil = auth()->user()->perfil();
+        }
+
+        $datosFiscales = $perfil->datosFiscales()->create([
             'str_regimen' => $request->regimen,
             'str_actividad_economica' => $request->actividad_economica,
             'str_nombre_comercial' => $request->nombre_comercial,

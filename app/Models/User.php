@@ -56,8 +56,5 @@ class User extends Authenticatable
         return $this->hasOne(PerfilUsuario::class, 'user_id', 'id');
     }
 
-    public function datosFiscales()
-    {
-        return $this->hasMany(DatosFiscales::class, 'fk_user', 'id');
-    }
+    
 }

@@ -38,6 +38,10 @@ class PerfilUsuario extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+    public function datosFiscales()
+    {
+        return $this->hasMany(DatosFiscales::class, 'fk_user', 'pk_perfil_id');
+    }
 
     public function files()
     {
